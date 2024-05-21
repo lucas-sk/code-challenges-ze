@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@prisma/client": "^5.14.0",
+    "fastify": "^4.27.0",
     "nanoid": "^5.0.7"
   }
 }
