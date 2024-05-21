@@ -15,6 +15,22 @@ export class InMemoryPartnerRepository implements PartnerRepository {
   }
 
   async findByDocument(document: string): Promise<Partner | null> {
-    return this.items.find(partner => partner.document === document) || null
+    const partner =  this.items.find(partner => partner.document === document)
+
+    if (!partner) {
+      return null
+    }
+
+    return partner
+  }
+
+  async findById(id: string): Promise<Partner | null> {
+    const partner = this.items.find(partner => partner.id === id)
+
+    if (!partner){
+      return null
+    }
+
+    return partner
   }
 }
