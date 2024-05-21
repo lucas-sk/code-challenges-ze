@@ -12,3 +12,12 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Partner {
+  id           String @id
+  tradingName  String
+  ownerName    String
+  document     String @unique
+  coverageArea Json
+  address      Json
+}
