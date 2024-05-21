@@ -3,7 +3,7 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { makeRegisterPartnerUseCase } from '@/use-cases/factories/make-register-partner-use-case';
 import { PartnerAlreadyExistError } from '@/use-cases/errors/PartnerAlreadyExists.error';
 
-export async function registerPartner(request: FastifyRequest, reply: FastifyReply) {
+export async function register(request: FastifyRequest, reply: FastifyReply) {
   const registerPartner = z.object({
     tradingName: z.string(),
     ownerName: z.string(),
