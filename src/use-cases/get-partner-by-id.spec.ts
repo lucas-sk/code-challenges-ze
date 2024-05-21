@@ -5,7 +5,7 @@ import { GetPartnerById } from "./get-partner-by-id"
 import { ResourceNotFoundError } from "./errors/ResourceNotFound.error"
 let partnerRepository: PartnerRepository
 let sut: GetPartnerById
-describe('Register Partner', () => {
+describe('Get Partner By Id Use Case', () => {
   beforeEach(() => {
     partnerRepository = new InMemoryPartnerRepository()
     sut = new GetPartnerById(partnerRepository) // System Under Test

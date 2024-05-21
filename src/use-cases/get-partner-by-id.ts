@@ -3,7 +3,7 @@ import { Partner } from "@prisma/client"
 import { ResourceNotFoundError } from "./errors/ResourceNotFound.error"
 
 interface GetPartnerByIdRequest {
-  id: string
+  partnerId: string
 }
 
 interface GetPartnerByIdResponse {
@@ -14,8 +14,8 @@ interface GetPartnerByIdResponse {
 export class GetPartnerById {
   constructor(private partnerRepository: PartnerRepository) {}
 
-  async execute({ id }: GetPartnerByIdRequest): Promise<GetPartnerByIdResponse> {
-    const partner = await this.partnerRepository.findById(id)
+  async execute({ partnerId }: GetPartnerByIdRequest): Promise<GetPartnerByIdResponse> {
+    const partner = await this.partnerRepository.findById(partnerId)
 
     if (!partner) {
       throw new ResourceNotFoundError()

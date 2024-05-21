@@ -10,6 +10,16 @@ export class PrismaPartnerRepository implements PartnerRepository {
     return partner
   }
 
+  async findById(id: string): Promise<Partner | null> {
+    const partner = prisma.partner.findUnique({
+      where: {
+        id
+      }
+    })
+
+    return partner
+  }
+
   findByDocument(document: string): Promise<Partner | null> {
     const partner = prisma.partner.findUnique({
       where: {
