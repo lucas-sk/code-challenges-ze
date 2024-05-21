@@ -1,0 +1,25 @@
+POST http://localhost:3000/partners
+Content-Type: application/json
+
+{
+  "document": "123456789",
+  "coverageArea": {
+    "type": "MultiPolygon",
+    "coordinates": [
+      [
+        [
+          [30, 20],
+          [45, 40],
+          [10, 40],
+          [30, 20]
+        ]
+      ]
+    ]
+    },
+  "address": {
+    "type": "Point",
+    "coordinates": [-46.57421, -21.785741]
+    },
+  "ownerName": "John Doe",
+  "tradingName": "Doe Corporation"
+}
