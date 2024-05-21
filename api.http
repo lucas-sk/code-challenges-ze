@@ -1,8 +1,9 @@
+# @name CreatePartner
 POST http://localhost:3000/partners
 Content-Type: application/json
 
 {
-  "document": "123456789",
+  "document": "12341115116712389",
   "coverageArea": {
     "type": "MultiPolygon",
     "coordinates": [
@@ -23,3 +24,7 @@ Content-Type: application/json
   "ownerName": "John Doe",
   "tradingName": "Doe Corporation"
 }
+
+###
+# @name GetPartner
+GET http://localhost:3000/partners/{{CreatePartner.response.body.partner.id}}

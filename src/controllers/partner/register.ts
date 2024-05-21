@@ -1,7 +1,8 @@
-import { z } from 'zod';
-import { FastifyReply, FastifyRequest } from "fastify";
-import { makeRegisterPartnerUseCase } from '@/use-cases/factories/make-register-partner-use-case';
-import { PartnerAlreadyExistError } from '@/use-cases/errors/PartnerAlreadyExists.error';
+import { FastifyReply, FastifyRequest } from 'fastify'
+import { z } from 'zod'
+
+import { PartnerAlreadyExistError } from '@/use-cases/errors/PartnerAlreadyExists.error'
+import { makeRegisterPartnerUseCase } from '@/use-cases/factories/make-register-partner-use-case'
 
 export async function register(request: FastifyRequest, reply: FastifyReply) {
   const registerPartner = z.object({
@@ -10,34 +11,35 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
     document: z.string(),
     coverageArea: z.object({
       type: z.string(),
-      coordinates: z.array(z.array(z.array(z.array(z.number()))))
+      coordinates: z.array(z.array(z.array(z.array(z.number())))),
     }),
     address: z.object({
       type: z.string(),
-      coordinates: z.array(z.number())
-    })
+      coordinates: z.array(z.number()),
+    }),
   })
 
-  const { tradingName, ownerName, document, coverageArea, address } = registerPartner.parse(request.body)
+  const { tradingName, ownerName, document, coverageArea, address } =
+    registerPartner.parse(request.body)
 
   try {
     const registerPartnerUseCase = makeRegisterPartnerUseCase()
-    registerPartnerUseCase.execute({
+    const partner = await registerPartnerUseCase.execute({
       tradingName,
       ownerName,
       document,
       coverageArea,
-      address
+      address,
     })
-  } catch(err) {
-    if (err instanceof PartnerAlreadyExistError){
+    return reply.status(201).send(partner)
+  } catch (err) {
+    console.log('🚀 ~ register ~ err:', err)
+    if (err instanceof PartnerAlreadyExistError) {
       return reply.status(409).send({
-        message: err.message
+        message: err.message,
       })
     }
 
     throw err
   }
-
-  return reply.status(201).send()
 }
