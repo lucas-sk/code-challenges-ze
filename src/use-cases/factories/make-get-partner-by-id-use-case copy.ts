@@ -1,5 +1,6 @@
-import { GetPartnerById } from './../get-partner-by-id';
-import { PrismaPartnerRepository } from "@/repositories/prisma/prisma-partner.repository";
+import { PrismaPartnerRepository } from '@/repositories/prisma/prisma-partner.repository'
+
+import { GetPartnerById } from './../get-partner-by-id'
 
 export function makeGetPartnerByIdUseCase() {
   const prismaPartnerRepository = new PrismaPartnerRepository()

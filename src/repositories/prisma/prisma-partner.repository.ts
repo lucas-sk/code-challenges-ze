@@ -1,11 +1,13 @@
-import { Partner, Prisma } from "@prisma/client";
-import { PartnerRepository } from "../partner.repository";
-import { prisma } from "@/lib/prisma";
+import { Partner, Prisma } from '@prisma/client'
+
+import { prisma } from '@/lib/prisma'
+
+import { PartnerRepository } from '../partner.repository'
 
 export class PrismaPartnerRepository implements PartnerRepository {
   async create(data: Prisma.PartnerCreateInput): Promise<Partner> {
     const partner = await prisma.partner.create({
-      data
+      data,
     })
     return partner
   }
@@ -13,8 +15,8 @@ export class PrismaPartnerRepository implements PartnerRepository {
   async findById(id: string): Promise<Partner | null> {
     const partner = prisma.partner.findUnique({
       where: {
-        id
-      }
+        id,
+      },
     })
 
     return partner
@@ -23,11 +25,10 @@ export class PrismaPartnerRepository implements PartnerRepository {
   findByDocument(document: string): Promise<Partner | null> {
     const partner = prisma.partner.findUnique({
       where: {
-        document
-      }
+        document,
+      },
     })
 
     return partner
   }
-
 }

@@ -1,8 +1,10 @@
-import { PartnerRepository } from './../repositories/partner.repository';
-import { describe, expect, beforeEach, it } from "vitest";
-import { RegisterPartner } from "./register-partner";
-import { InMemoryPartnerRepository } from '@/repositories/in-memory/in-memory-partner.repository';
-import { PartnerAlreadyExistError } from './errors/PartnerAlreadyExists.error';
+import { beforeEach, describe, expect, it } from 'vitest'
+
+import { InMemoryPartnerRepository } from '@/repositories/in-memory/in-memory-partner.repository'
+
+import { PartnerRepository } from './../repositories/partner.repository'
+import { PartnerAlreadyExistError } from './errors/PartnerAlreadyExists.error'
+import { RegisterPartner } from './register-partner'
 
 let partnerRepository: PartnerRepository
 let sut: RegisterPartner
@@ -22,26 +24,26 @@ describe('Register Partner', () => {
               [30, 20],
               [45, 40],
               [10, 40],
-              [30, 20]
-            ]
-          ]
-        ]
+              [30, 20],
+            ],
+          ],
+        ],
       },
       address: {
         type: 'Point',
-        coordinates: [-46.57421, -21.785741]
+        coordinates: [-46.57421, -21.785741],
       },
       ownerName: 'John Doe',
-      tradingName: 'Doe Corporation'
+      tradingName: 'Doe Corporation',
     })
 
     expect(partner.id).toEqual(expect.any(String))
   })
 
-  it('should not to be able register with same document', async() => {
+  it('should not to be able register with same document', async () => {
     const document = '123456789'
 
-    const { partner } = await sut.execute({
+    await sut.execute({
       document,
       coverageArea: {
         type: 'MultiPolygon',
@@ -51,39 +53,41 @@ describe('Register Partner', () => {
               [30, 20],
               [45, 40],
               [10, 40],
-              [30, 20]
-            ]
-          ]
-        ]
+              [30, 20],
+            ],
+          ],
+        ],
       },
       address: {
         type: 'Point',
-        coordinates: [-46.57421, -21.785741]
+        coordinates: [-46.57421, -21.785741],
       },
       ownerName: 'John Doe',
-      tradingName: 'Doe Corporation'
+      tradingName: 'Doe Corporation',
     })
-    await expect (sut.execute({
-      document,
-      coverageArea: {
-        type: 'MultiPolygon',
-        coordinates: [
-          [
+    await expect(
+      sut.execute({
+        document,
+        coverageArea: {
+          type: 'MultiPolygon',
+          coordinates: [
             [
-              [30, 20],
-              [45, 40],
-              [10, 40],
-              [30, 20]
-            ]
-          ]
-        ]
-      },
-      address: {
-        type: 'Point',
-        coordinates: [-46.57421, -21.785741]
-      },
-      ownerName: 'John Doe',
-      tradingName: 'Doe Corporation'
-    })).rejects.toBeInstanceOf(PartnerAlreadyExistError)
+              [
+                [30, 20],
+                [45, 40],
+                [10, 40],
+                [30, 20],
+              ],
+            ],
+          ],
+        },
+        address: {
+          type: 'Point',
+          coordinates: [-46.57421, -21.785741],
+        },
+        ownerName: 'John Doe',
+        tradingName: 'Doe Corporation',
+      }),
+    ).rejects.toBeInstanceOf(PartnerAlreadyExistError)
   })
 })
