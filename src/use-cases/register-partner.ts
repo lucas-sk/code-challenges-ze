@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid';
 import { PartnerRepository } from '../repositories/partner.repository.js';
 import { Partner } from '@prisma/client';
-import { PartnerAlreadyExistError } from './errors/ParterAlreadyExists.error.js';
+import { PartnerAlreadyExistError } from './errors/PartnerAlreadyExists.error.js';
 
 interface RegisterPartnerUseCaseRequest {
   tradingName: string;
