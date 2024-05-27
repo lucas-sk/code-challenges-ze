@@ -1,11 +1,14 @@
 import fastify from 'fastify'
 import { ZodError } from 'zod'
 
-import { partnerRoutes } from './controllers/partner/routes'
+import { env } from './env'
+import { partnerRoutes } from './http/controllers/partner/routes'
 
 export const app = fastify()
 
 app.register(partnerRoutes)
+
+console.log(env)
 
 app.setErrorHandler((error, _, reply) => {
   if (error instanceof ZodError) {
@@ -14,8 +17,6 @@ app.setErrorHandler((error, _, reply) => {
       issues: error.format(),
     })
   }
-
-  console.log(error)
 
   return reply.status(500).send({
     message: 'Internal server error!!.',
