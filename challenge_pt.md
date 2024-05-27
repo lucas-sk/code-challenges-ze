@@ -46,7 +46,7 @@ Abaixo, você pode ver como estes parceiros são representados em um mapa:
 Retornar um parceiro específico baseado no seu campo `id` com todos os campos apresentados acima.
 
 ### 1.3. Buscar parceiro:
-Dada uma localização pelo usuário da API (coordenadas `long` e `lat`), procure o parceiro que esteja **mais próximo** e **que cuja área de cobertura inclua** a localização.
+Dada uma localização pelo usuário da API (coordenadas `long` e `lat`), procure o parceiro que esteja **mais próximo** e **que cuja área de cobertura inclua ** a localização.
 
 ### 1.4. Requerimentos Técnicos:
 * Você tem liberdade para escolher a linguagem de programação e o mecanismo de base de dados da sua preferência;

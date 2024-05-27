@@ -1,6 +1,6 @@
 import { Partner, Prisma } from '@prisma/client'
-
-import { getDistanceBetweenCoordinates } from '@/utils/getDistanceBetweenCoordinates'
+import booleanPointInPolygon from '@turf/boolean-point-in-polygon'
+import { multiPolygon, point } from '@turf/helpers'
 
 import { FindManyNearbyParams, PartnerRepository } from '../partner.repository'
 
@@ -9,27 +9,21 @@ export class InMemoryPartnerRepository implements PartnerRepository {
 
   async findManyNearby(params: FindManyNearbyParams): Promise<Partner[]> {
     const partners = this.items.filter((item) => {
-      if (!item.address) {
+      if (!item.coverageArea) {
         return false
       }
 
-      const coordinate = {
-        latitude: Number(item.address.coordinates[0]),
-        longitude: Number(item.address.coordinates[1]),
-      } as { latitude: number; longitude: number }
+      const pointToCheck = point([params.longitude, params.latitude])
+      const coordinates: number[][][][] = item.coverageArea.coordinates
 
-      const distance = getDistanceBetweenCoordinates(
-        {
-          longitude: params.longitude,
-          latitude: params.latitude,
-        },
-        {
-          longitude: coordinate.longitude,
-          latitude: coordinate.latitude,
-        },
+      const turfMultiPolygon = multiPolygon(coordinates)
+
+      const isWithinCoverage = booleanPointInPolygon(
+        pointToCheck,
+        turfMultiPolygon,
       )
 
-      return distance < 10
+      return isWithinCoverage
     })
 
     return partners

@@ -2,9 +2,27 @@ import { Partner, Prisma } from '@prisma/client'
 
 import { prisma } from '@/lib/prisma'
 
-import { PartnerRepository } from '../partner.repository'
+import { FindManyNearbyParams, PartnerRepository } from '../partner.repository'
 
 export class PrismaPartnerRepository implements PartnerRepository {
+  async findManyNearby({
+    latitude,
+    longitude,
+  }: FindManyNearbyParams): Promise<Partner[]> {
+    const partners = await prisma.$queryRaw<Partner[]>`SELECT *
+      FROM partners
+      WHERE ST_Contains(ST_GeomFromGeoJSON(partners.coverage_area), ST_GeomFromGeoJSON(${JSON.stringify(
+        {
+          type: 'Point',
+          coordinates: [longitude, latitude],
+        },
+      )}));
+    `
+    console.log('🚀 ~ PrismaPartnerRepository ~ partners:', partners)
+
+    return partners
+  }
+
   async create(data: Prisma.PartnerCreateInput): Promise<Partner> {
     const partner = await prisma.partner.create({
       data,

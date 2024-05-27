@@ -16,6 +16,8 @@
   "devDependencies": {
     "@eslint/js": "^9.3.0",
     "@rocketseat/eslint-config": "^2.2.2",
+    "@turf/boolean-point-in-polygon": "^6.5.0",
+    "@turf/helpers": "^6.5.0",
     "@types/node": "^20.12.12",
     "eslint": "^8.34.0",
     "eslint-plugin-simple-import-sort": "^12.1.0",

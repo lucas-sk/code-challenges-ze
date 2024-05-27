@@ -15,9 +15,11 @@ datasource db {
 
 model Partner {
   id           String @id
-  tradingName  String
-  ownerName    String
+  tradingName  String @map("trading_name")
+  ownerName    String @map("owner_name")
   document     String @unique
-  coverageArea Json
+  coverageArea Json   @map("coverage_area")
   address      Json
+
+  @@map("partners")
 }
