@@ -16,7 +16,7 @@ export async function getById(request: FastifyRequest, reply: FastifyReply) {
 
     const partner = await getPartnerByIdUseCase.execute({ partnerId })
 
-    return reply.status(201).send(partner)
+    return reply.status(200).send(partner)
   } catch (err) {
     if (err instanceof ResourceNotFoundError) {
       return reply.status(404).send({
