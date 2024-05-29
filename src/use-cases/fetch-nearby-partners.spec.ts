@@ -101,7 +101,6 @@ describe('Fetch Nearby Gyms Use Case', () => {
       userLatitude: -25.401233,
       userLongitude: -49.283756,
     })
-    console.log('🚀 ~ it ~ partners:', partners)
 
     expect(partners).toHaveLength(1)
     expect(partners).toEqual([

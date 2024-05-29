@@ -33,7 +33,6 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
     })
     return reply.status(201).send(partner)
   } catch (err) {
-    console.log('🚀 ~ register ~ err:', err)
     if (err instanceof PartnerAlreadyExistError) {
       return reply.status(409).send({
         message: err.message,
