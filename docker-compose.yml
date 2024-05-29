@@ -10,6 +10,17 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ze_data_tst:/var/lib/postgresql/data
+      - ze_data:/var/lib/postgresql/data
+  db-shadow:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: zepartner
+    ports:
+      - "5433:5432"
+    volumes:
+      - ze_data:/var/lib/postgresql/data
+
 volumes:
-  ze_data_tst:
+  ze_data:
