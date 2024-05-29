@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
-import { MakeFetchNearbyPartnersUseCase } from '@/use-cases/factories/make-fetch-nearby-partners-use-case'
+import { makeFetchNearbyPartnersUseCase } from '@/use-cases/factories/make-fetch-nearby-partners-use-case'
 
 export async function nearby(request: FastifyRequest, reply: FastifyReply) {
   const nearbyPartnerQuerySchema = z.object({
@@ -15,12 +15,12 @@ export async function nearby(request: FastifyRequest, reply: FastifyReply) {
 
   const { latitude, longitude } = nearbyPartnerQuerySchema.parse(request.query)
 
-  const fetchNearbyPartnersUseCase = MakeFetchNearbyPartnersUseCase()
+  const fetchNearbyPartnersUseCase = makeFetchNearbyPartnersUseCase()
 
   const partners = await fetchNearbyPartnersUseCase.execute({
     userLatitude: latitude,
     userLongitude: longitude,
   })
 
-  return reply.status(201).send(partners)
+  return reply.status(200).send(partners)
 }

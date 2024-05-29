@@ -2,7 +2,7 @@ import { PrismaPartnerRepository } from '@/repositories/prisma/prisma-partner.re
 
 import { FetchNearbyPartnersUseCase } from '../fetch-nearby-partners'
 
-export function MakeFetchNearbyPartnersUseCase() {
+export function makeFetchNearbyPartnersUseCase() {
   const prismaPartnerRepository = new PrismaPartnerRepository()
   const fetchNearbyPartnersUseCase = new FetchNearbyPartnersUseCase(
     prismaPartnerRepository,

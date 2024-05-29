@@ -9,17 +9,17 @@ export class PrismaPartnerRepository implements PartnerRepository {
     latitude,
     longitude,
   }: FindManyNearbyParams): Promise<Partner[]> {
+    const parameter = JSON.stringify({
+      type: 'Point',
+      coordinates: [longitude, latitude],
+    })
     const partners = await prisma.$queryRaw<Partner[]>`
-    SELECT *
-      FROM partners
-    ORDER BY ST_Distance(ST_GeomFromGeoJSON(partners.coverage_area), ST_GeomFromGeoJSON(${JSON.stringify(
-      {
-        type: 'Point',
-        coordinates: [longitude, latitude],
-      },
-    )}));
+      SELECT id as "id", trading_name AS "tradingName",
+  owner_name AS "ownerName",
+  document AS "document",
+  coverage_area AS "coverageArea",
+  address AS "address" FROM partners WHERE ST_Contains(ST_GeomFromGeoJSON(partners.coverage_area), ST_GeomFromGeoJSON(${parameter})) ORDER BY ST_Distance(ST_GeomFromGeoJSON(partners.coverage_area), ST_GeomFromGeoJSON(${parameter}));
     `
-
     return partners
   }
 
