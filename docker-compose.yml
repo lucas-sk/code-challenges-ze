@@ -20,7 +20,8 @@ services:
     ports:
       - "5433:5432"
     volumes:
-      - ze_data:/var/lib/postgresql/data
+      - ze_data_shadow:/var/lib/postgresql/data
 
 volumes:
   ze_data:
+  ze_data_shadow:
