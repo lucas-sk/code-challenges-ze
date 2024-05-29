@@ -1,3 +1,5 @@
+import 'dotenv/config'
+
 import { execSync } from 'node:child_process'
 import { randomUUID } from 'node:crypto'
 
@@ -27,7 +29,7 @@ export default <Environment>{
 
     process.env.DATABASE_URL = databaseURL
 
-    execSync('npx prisma migrate deploy')
+    execSync('pnpm dlx prisma migrate deploy')
 
     return {
       async teardown() {
