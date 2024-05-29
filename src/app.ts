@@ -10,8 +10,8 @@ import {
 import { ZodError } from 'zod'
 
 import { getByIdPartner } from './http/controllers/partner/getById'
+import { nearByPartners } from './http/controllers/partner/nearby'
 import { registerPartner } from './http/controllers/partner/register'
-import { partnerRoutes } from './http/controllers/partner/routes'
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -33,9 +33,9 @@ app.register(scalar, {
   routePrefix: '/docs',
 })
 
-app.register(partnerRoutes)
 app.register(registerPartner)
 app.register(getByIdPartner)
+app.register(nearByPartners)
 
 app.setErrorHandler((error, _, reply) => {
   if (error instanceof ZodError) {
