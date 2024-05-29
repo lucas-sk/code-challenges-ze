@@ -9,6 +9,8 @@ export async function nearByPartners(app: FastifyInstance) {
     '/partners',
     {
       schema: {
+        tags: ['partners'],
+        summary: 'Get near by partners',
         querystring: z.object({
           latitude: z.coerce.number().refine((value) => {
             return Math.abs(value) <= 90

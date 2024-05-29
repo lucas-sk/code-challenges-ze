@@ -28,6 +28,8 @@ export async function getByIdPartner(app: FastifyInstance) {
     '/partners/:partnerId',
     {
       schema: {
+        tags: ['partners'],
+        summary: 'Get partner by id',
         params: z.object({
           partnerId: z.string(),
         }),
