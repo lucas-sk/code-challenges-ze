@@ -9,6 +9,7 @@ import {
 } from 'fastify-type-provider-zod'
 import { ZodError } from 'zod'
 
+import { getByIdPartner } from './http/controllers/partner/getById'
 import { registerPartner } from './http/controllers/partner/register'
 import { partnerRoutes } from './http/controllers/partner/routes'
 
@@ -34,6 +35,7 @@ app.register(scalar, {
 
 app.register(partnerRoutes)
 app.register(registerPartner)
+app.register(getByIdPartner)
 
 app.setErrorHandler((error, _, reply) => {
   if (error instanceof ZodError) {
